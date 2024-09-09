@@ -9,8 +9,29 @@ public class GameJFrame extends JFrame {
         // 初始化菜单
         initJMenuBar();
 
+        // 初始化图片
+        initImage();
+
         // 界面显示，建议放在最后
         this.setVisible(true);
+    }
+
+    private void initImage() {
+        int num = 1;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                // 创建一个图片ImageIcon的对象
+                ImageIcon icon = new ImageIcon("/Users/wangshimin/study/java/basicCode/image/animal/animal3/"+num+".jpg");
+                // 创建一个JLabel的对象（管理容器）
+                JLabel jLabel = new JLabel(icon);
+                // 指定图片位置
+                jLabel.setBounds(j*105,i*105,105,105);
+                // 将管理容器添加到界面当中
+                this.getContentPane().add(jLabel);
+                num++;
+            }
+        }
+
     }
 
     private void initJMenuBar() {
@@ -52,6 +73,8 @@ public class GameJFrame extends JFrame {
         this.setLocationRelativeTo(null);
         // 设置关闭模式
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // 取消默认的居中放置，只有取消了才会按照XY轴的形式添加组件
+        this.setLayout(null);
     }
 
 }
