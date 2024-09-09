@@ -1,31 +1,70 @@
 package puzzlegame.ui;
 
 import javax.swing.*;
+import java.util.Random;
 
 public class GameJFrame extends JFrame {
+    // 创建一个二维数组
+    // 目的：用来管理数据
+    // 加载图片的时候，会根据二维数组中的数据进行加载
+    int[][] data = new int[4][4];
+
     public GameJFrame() {
         initJFrame();
 
         // 初始化菜单
         initJMenuBar();
 
-        // 初始化图片
+        // 初始化数据（打乱）
+        initData();
+
+        // 初始化图片（根据打乱之后的结果去加载图片）
         initImage();
 
         // 界面显示，建议放在最后
         this.setVisible(true);
     }
 
+    private void initData() {
+        // 1.定义一个一维数组
+        int[] tempArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        // 2.打乱数组中的数据的顺序
+        // 遍历数组，得到每一个元素，拿着每一个元素跟随机索引上的数据进行交换
+        int len = tempArr.length;
+        Random r = new Random();
+        for (int i = 0; i < len; i++) {
+            // 获取随机索引
+            int index = r.nextInt(len);
+            // 拿着遍历到的每一个数据，跟随机索引上的数据进行交换
+            int temp = tempArr[i];
+            tempArr[i] = tempArr[index];
+            tempArr[index] = temp;
+        }
+        // 3.给二维数组添加数据
+        int index = 0;
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                data[i][j] = tempArr[index];
+                index++;
+            }
+        }
+    }
+
+    /**
+     * 初始化图片
+     * 添加图片的时候，就需要按照二维数组中管理的数据添加图片
+     */
     private void initImage() {
-        int num = 1;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
+                // 获取当前要加载图片的序号
+                int num = data[i][j];
                 // 创建一个图片ImageIcon的对象
-                ImageIcon icon = new ImageIcon("/Users/wangshimin/study/java/basicCode/image/animal/animal3/"+num+".jpg");
+                ImageIcon icon = new ImageIcon("/Users/wangshimin/study/java/basicCode/image/animal/animal3/" + num + ".jpg");
                 // 创建一个JLabel的对象（管理容器）
                 JLabel jLabel = new JLabel(icon);
                 // 指定图片位置
-                jLabel.setBounds(j*105,i*105,105,105);
+                jLabel.setBounds(j * 105, i * 105, 105, 105);
                 // 将管理容器添加到界面当中
                 this.getContentPane().add(jLabel);
                 num++;
@@ -64,7 +103,7 @@ public class GameJFrame extends JFrame {
 
     private void initJFrame() {
         // 界面宽高
-        this.setSize(603,680);
+        this.setSize(603, 680);
         // 界面标题
         this.setTitle("游戏开始界面");
         // 界面置顶
