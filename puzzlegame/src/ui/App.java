@@ -1,4 +1,4 @@
-package puzzlegame.ui;
+package ui;
 
 public class App {
     public static void main(String[] args) {

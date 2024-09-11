@@ -1,4 +1,4 @@
-package puzzlegame.ui;
+package ui;
 
 import javax.swing.*;
 
