@@ -401,7 +401,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
      */
     public void changeTheme(String themeName, int style){
         Random r = new Random();
-        imageTheme = themeName +"/"+ themeName + (r.nextInt(style-1)+1) + "/";
+        imageTheme = themeName +"/"+ themeName + r.nextInt(style) + "/";
 //        System.out.println(imageTheme);
         // 计步器清零
         step = 0;
