@@ -27,6 +27,9 @@ public class GameJFrame extends JFrame implements KeyListener  {
             {13, 14, 15, 0}
     };
 
+    // 定义变量用来统计步数
+    int step = 0;
+
     public GameJFrame() {
         initJFrame();
 
@@ -93,6 +96,10 @@ public class GameJFrame extends JFrame implements KeyListener  {
             winJLabel.setBounds(203,283,297,73);
             this.getContentPane().add(winJLabel);
         }
+
+        JLabel stepCount = new JLabel("步数：" + step);
+        stepCount.setBounds(50, 30, 100, 20);
+        this.getContentPane().add(stepCount);
 
         // 路径分为两种：
         // 绝对路径 - 一定是哦那个盘符开始的。 C:\ D:\
@@ -225,6 +232,8 @@ public class GameJFrame extends JFrame implements KeyListener  {
                 data[x][y] = data[x][ y+1 ];
                 data[x][y+1] = 0;
                 y++;
+                // 每移动一次，记步器就自增一次
+                step++;
                 // 调用方法按照最新的数字加载图片
                 initImage();
             }
@@ -243,6 +252,8 @@ public class GameJFrame extends JFrame implements KeyListener  {
                 data[x][y] = data[ x+1 ][y];
                 data[ x+1 ][y] = 0;
                 x++;
+                // 每移动一次，记步器就自增一次
+                step++;
                 // 调用方法按照最新的数字加载图片
                 initImage();
             }
@@ -254,6 +265,8 @@ public class GameJFrame extends JFrame implements KeyListener  {
                 data[x][y] = data[x][ y-1 ];
                 data[x][ y-1 ] = 0;
                 y--;
+                // 每移动一次，记步器就自增一次
+                step++;
                 // 调用方法按照最新的数字加载图片
                 initImage();
             }
@@ -266,6 +279,8 @@ public class GameJFrame extends JFrame implements KeyListener  {
                 data[x][y] = data[ x-1 ][y];
                 data[ x-1 ][y] = 0;
                 x--;
+                // 每移动一次，记步器就自增一次
+                step++;
                 // 调用方法按照最新的数字加载图片
                 initImage();
             }
