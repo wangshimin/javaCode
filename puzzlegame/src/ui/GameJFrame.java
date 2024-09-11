@@ -19,8 +19,8 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     int y = 0;
 
     // 定义一个变量，记录当前展示图片的路径
-    String imagePath = "puzzlegame/image/animal/animal3/";
-
+    String imagePath = "puzzlegame/image/";
+    String imageTheme = "animal/animal3/";
     // 定义一个二维数组，存储正确的数据
     int[][] win = {
             {1, 2, 3, 4},
@@ -33,10 +33,12 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     int step = 0;
 
     // 创建选项下面的条目对象
+    JMenuItem girl = new JMenuItem("美女");
+    JMenuItem animal = new JMenuItem("动物");
+    JMenuItem sport = new JMenuItem("运动");
     JMenuItem replayItem = new JMenuItem("重新游戏");
     JMenuItem reloginItem = new JMenuItem("重新登录");
     JMenuItem closeItem = new JMenuItem("关闭游戏");
-
     JMenuItem accountItem = new JMenuItem("公众号");
 
     public GameJFrame() {
@@ -122,7 +124,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 // 获取当前要加载图片的序号
                 int num = data[i][j];
                 // 创建一个图片ImageIcon的对象
-                ImageIcon icon = new ImageIcon(imagePath + num + ".jpg");
+                ImageIcon icon = new ImageIcon(imagePath + imageTheme + num + ".jpg");
                 // 创建一个JLabel的对象（管理容器）
                 JLabel jLabel = new JLabel(icon);
                 // 指定图片位置
@@ -154,16 +156,25 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         // 创建菜单上面的两个选项的对象(功能、关于我们)
         JMenu functionJMenu = new JMenu("功能");
         JMenu aboutJMenu = new JMenu("关于我们");
+        // 创建更换图片
+        JMenu changeImage = new JMenu("更换图片");
 
-
+        // 把美女、动物、运动添加到更换图片当中
+        changeImage.add(girl);
+        changeImage.add(animal);
+        changeImage.add(sport);
 
         // 将每一个选项下面的条目添加到选项当中
+        functionJMenu.add(changeImage);
         functionJMenu.add(reloginItem);
         functionJMenu.add(replayItem);
         functionJMenu.add(closeItem);
         aboutJMenu.add(accountItem);
 
         // 给条目绑定事件
+        girl.addActionListener(this);
+        animal.addActionListener(this);
+        sport.addActionListener(this);
         replayItem.addActionListener(this);
         reloginItem.addActionListener(this);
         closeItem.addActionListener(this);
@@ -207,12 +218,12 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             // 把界面中所有的图片全部删除
             this.getContentPane().removeAll();
             // 加载第一张完整的图片
-            JLabel jLabel = new JLabel(new ImageIcon(imagePath+"all.jpg"));
+            JLabel jLabel = new JLabel(new ImageIcon(imagePath + imageTheme +"all.jpg"));
             jLabel.setBounds(83, 134, 420, 420);
             this.getContentPane().add(jLabel);
 
             // 加载背景图片
-            JLabel background = new JLabel(new ImageIcon("puzzlegame/image/background.png"));
+            JLabel background = new JLabel(new ImageIcon(imagePath+"background.png"));
             background.setBounds(40, 40, 508, 560);
             this.getContentPane().add(background);
 
@@ -352,7 +363,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             System.out.println("关闭游戏");
             // 直接关闭虚拟机即可
             System.exit(0);
-        } else {
+        } else if( obj == accountItem ) {
             System.out.println("公众号");
 
             // 创建一个弹框对象
@@ -373,7 +384,30 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             jDialog.setModal(true);
             // 让弹框显示出来
             jDialog.setVisible(true);
+        } else if (obj == girl) {
+            changeTheme("girl", 13);
+        } else if(obj == animal) {
+            changeTheme("animal",8);
+        } else if (obj == sport) {
+            changeTheme("sport", 10);
         }
 
+    }
+
+    /**
+     * 更换图片
+     * @param themeName
+     * @param style
+     */
+    public void changeTheme(String themeName, int style){
+        Random r = new Random();
+        imageTheme = themeName +"/"+ themeName + (r.nextInt(style-1)+1) + "/";
+//        System.out.println(imageTheme);
+        // 计步器清零
+        step = 0;
+        // 再次打乱二维数组中的数据
+        initData();
+        // 重新加载图片
+        initImage();
     }
 }
