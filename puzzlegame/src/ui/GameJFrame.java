@@ -249,6 +249,17 @@ public class GameJFrame extends JFrame implements KeyListener  {
                 initImage();
             }
             case 65 ->{
+                // 按a，回到拼图界面
+                initImage();
+            }
+            case 87 ->{
+                // 按w，直接胜利
+                data = new int[][]{
+                        {1,2,3,4},
+                        {5,6,7,8},
+                        {9,10,11,12},
+                        {13,14,15,0}
+                };
                 initImage();
             }
         }
