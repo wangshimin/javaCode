@@ -2,11 +2,13 @@ package ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GameJFrame extends JFrame implements KeyListener  {
+public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     // 创建一个二维数组
     // 目的：用来管理数据
     // 加载图片的时候，会根据二维数组中的数据进行加载
@@ -29,6 +31,13 @@ public class GameJFrame extends JFrame implements KeyListener  {
 
     // 定义变量用来统计步数
     int step = 0;
+
+    // 创建选项下面的条目对象
+    JMenuItem replayItem = new JMenuItem("重新游戏");
+    JMenuItem reloginItem = new JMenuItem("重新登录");
+    JMenuItem closeItem = new JMenuItem("关闭游戏");
+
+    JMenuItem accountItem = new JMenuItem("公众号");
 
     public GameJFrame() {
         initJFrame();
@@ -75,9 +84,8 @@ public class GameJFrame extends JFrame implements KeyListener  {
             if (tempArr[i] == 0) {
                 x = i / 4;
                 y = i % 4;
-            } else {
-                data[i / 4][i % 4] = tempArr[i];
             }
+            data[i / 4][i % 4] = tempArr[i];
         }
     }
 
@@ -147,18 +155,19 @@ public class GameJFrame extends JFrame implements KeyListener  {
         JMenu functionJMenu = new JMenu("功能");
         JMenu aboutJMenu = new JMenu("关于我们");
 
-        // 创建选项下面的条目对象
-        JMenuItem replayItem = new JMenuItem("重新开始");
-        JMenuItem reloginItem = new JMenuItem("重新登录");
-        JMenuItem closeItem = new JMenuItem("关闭游戏");
 
-        JMenuItem accountItem = new JMenuItem("公众号");
 
         // 将每一个选项下面的条目添加到选项当中
         functionJMenu.add(reloginItem);
         functionJMenu.add(replayItem);
         functionJMenu.add(closeItem);
         aboutJMenu.add(accountItem);
+
+        // 给条目绑定事件
+        replayItem.addActionListener(this);
+        reloginItem.addActionListener(this);
+        closeItem.addActionListener(this);
+        accountItem.addActionListener(this);
 
         // 将菜单里面的两个选项添加到菜单当中
         jMenuBar.add(functionJMenu);
@@ -318,5 +327,53 @@ public class GameJFrame extends JFrame implements KeyListener  {
         }
         // 循环结束表示数据遍历完毕，没有发现不一样的数据，返回true
         return true;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // 获取当前被点就的条目对象
+        Object obj = e.getSource();
+        // 判断
+        if (obj == replayItem){
+            System.out.println("重新游戏");
+            // 计步器清零
+            step = 0;
+            // 再次打乱二维数组中的数据
+            initData();
+            // 重新加载图片
+            initImage();
+        } else if (obj == reloginItem) {
+            System.out.println("重新登录");
+            // 关闭当前的游戏界面
+            this.setVisible(false);
+            // 打开登录界面
+            new LoginJFrame();
+        } else if (obj == closeItem) {
+            System.out.println("关闭游戏");
+            // 直接关闭虚拟机即可
+            System.exit(0);
+        } else {
+            System.out.println("公众号");
+
+            // 创建一个弹框对象
+            JDialog jDialog = new JDialog();
+            // 创建一个管理图片的容器对象JLabel
+            JLabel jLabel = new JLabel(new ImageIcon("puzzlegame/image/about.png"));
+            // 设置位置和宽高
+            jLabel.setBounds(0,0,358,258);
+            // 把图片添加到弹框当中
+            jDialog.getContentPane().add(jLabel);
+            // 设置弹框大小
+            jDialog.setSize(344,344);
+            // 让弹框置顶
+            jDialog.setAlwaysOnTop(true);
+            // 设置弹框居中
+            jDialog.setLocationRelativeTo(null);
+            // 让弹框不关闭则无法操作下面的界面
+            jDialog.setModal(true);
+            // 让弹框显示出来
+            jDialog.setVisible(true);
+        }
+
     }
 }
