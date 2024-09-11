@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GameJFrame extends JFrame implements KeyListener {
+public class GameJFrame extends JFrame implements KeyListener  {
     // 创建一个二维数组
     // 目的：用来管理数据
     // 加载图片的时候，会根据二维数组中的数据进行加载
@@ -15,6 +15,9 @@ public class GameJFrame extends JFrame implements KeyListener {
     // 记录空白方块在二维数组中的位置
     int x = 0;
     int y = 0;
+
+    // 定义一个变量，记录当前展示图片的路径
+    String imagePath = "puzzlegame/image/animal/animal3/";
 
     public GameJFrame() {
         initJFrame();
@@ -89,7 +92,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                 // 获取当前要加载图片的序号
                 int num = data[i][j];
                 // 创建一个图片ImageIcon的对象
-                ImageIcon icon = new ImageIcon("puzzlegame/image/animal/animal3/" + num + ".jpg");
+                ImageIcon icon = new ImageIcon(imagePath + num + ".jpg");
                 // 创建一个JLabel的对象（管理容器）
                 JLabel jLabel = new JLabel(icon);
                 // 指定图片位置
@@ -165,9 +168,26 @@ public class GameJFrame extends JFrame implements KeyListener {
 
     }
 
+    // 按下不松时会调用该方法
     @Override
     public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
+        if (code == 65){
+            // 把界面中所有的图片全部删除
+            this.getContentPane().removeAll();
+            // 加载第一张完整的图片
+            JLabel jLabel = new JLabel(new ImageIcon(imagePath+"all.jpg"));
+            jLabel.setBounds(83, 134, 420, 420);
+            this.getContentPane().add(jLabel);
 
+            // 加载背景图片
+            JLabel background = new JLabel(new ImageIcon("puzzlegame/image/background.png"));
+            background.setBounds(40, 40, 508, 560);
+            this.getContentPane().add(background);
+
+            // 刷新界面
+            this.getContentPane().repaint();
+        }
     }
 
     @Override
@@ -226,6 +246,9 @@ public class GameJFrame extends JFrame implements KeyListener {
                 data[ x-1 ][y] = 0;
                 x--;
                 // 调用方法按照最新的数字加载图片
+                initImage();
+            }
+            case 65 ->{
                 initImage();
             }
         }
