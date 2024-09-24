@@ -54,5 +54,6 @@ public class A04 {
         for (String item : list) {
             System.out.println(item);
         }
+
     }
 }
