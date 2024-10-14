@@ -42,13 +42,13 @@ public class Poker extends JLabel implements MouseListener {
 
 
     // 显示正面
-    private void turnFront() {
+    public void turnFront() {
         this.setIcon(new ImageIcon("src/day25_DouDiZhu/Demo4/farmerandlord/image/poker/" + name + ".png"));
         this.up = true;
     }
 
     // 显示背面
-    private void turnRear() {
+    public void turnRear() {
         this.setIcon(new ImageIcon("src/day25_DouDiZhu/Demo4/farmerandlord/image/poker/rear.png"));
         this.up = false;
     }
