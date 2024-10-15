@@ -42,6 +42,9 @@ public class demo3 {
                 .filter(s -> s.split(",")[0].startsWith("杨"))
                 .skip(1);
         System.out.println("--------- 合并演员姓名 --------- ");
+        // 演员信息封装成Actor对象
+
+        // String -> Actor对象（类型转换），就要使用流中的map方法
 
 /*
         List<Actor> list = Stream.concat(stream1, stream2).map(new Function<String, Actor>() {
@@ -54,7 +57,9 @@ public class demo3 {
         }).collect(Collectors.toList());
 
  */
-        List<Actor> list = Stream.concat(stream1, stream2).map(s -> new Actor(s.split(",")[0], Integer.parseInt(s.split(",")[1]))).collect(Collectors.toList());
+        List<Actor> list = Stream.concat(stream1, stream2)
+                .map(s -> new Actor(s.split(",")[0], Integer.parseInt(s.split(",")[1])))
+                .collect(Collectors.toList());
         System.out.println(list);
     }
 }
