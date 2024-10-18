@@ -75,3 +75,52 @@ public void 方法(){
 ```
 **总结：在方法中，出现异常了，方法就没有继续运行下去的意义了，采取抛出处理。目的是让该方法结束运行并告诉调用者出现了问题。**
 
+## File
+### 1. 概述  
+- File对象就表示一个路径，可以是文件的路径，也可以是文件夹的路径。
+- 这个路径可以是存在的，也允许是不存在的。
+- File对象不能直接操作文件，只能操作路径，所以要使用File对象，必须配合FileInputStream、FileOutputStream等流对象来完成文件的读写操作。
+
+绝对路径： 带盘符的。
+相对路径： 不带盘符的，默认到当前项目下去中找。
+
+### 2. 常用方法
+#### 三种构造方法
+
+| 方法名称                                     | 说明                        |
+|------------------------------------------|---------------------------|
+| public File(String pathname)             | 根据文件路径创建文件对象              |
+| public File(String parent, String child) | 根据父路径名字符串和子路径名字符串创建文件对象   |
+| public File(File parent, String child)   | 根据父路径对应文件对象和子路径名字符串创建文件对象 |
+
+#### 判断、获取相关的方法
+| 方法名称                            | 说明                  |
+|---------------------------------|---------------------|
+| public boolean isDirectory()    | 判断此路径名表示的File是否为文件夹 |
+| public boolean isFile()         | 判断此路径名表示的File是否是为文件 |
+| public boolean exists()         | 判断此路径名表示的File是否存在   |
+| public long length()            | 返回文件的大小（字节数量）       |
+| public String getAbsolutePath() | 返回文件的绝对路径           |
+| public String getPath()         | 返回定义文件时使用的路径        |
+| public String getName()         | 返回文件的名称，带后缀         |
+| public long lastModified()      | 返回文件的最后修改时间（时间毫秒值）  |
+
+#### 创建、删除相关的方法
+| 方法名称                            | 说明                                       |
+|---------------------------------|------------------------------------------|
+| public boolean createNewFile() throws IOException | 创建一个新的空的文件                               |
+| public boolean mkdir() | 创建单级文件夹                                  |
+| public boolean mkdirs() | 创建多级文件夹                                  |
+| public boolean delete() | 删除文件、文件夹 (只能删除文件和空文件夹，delete方法直接删除不走回收站) |
+
+#### 获取并遍历的方法
+| 方法名称                                            | 说明                   |
+|-------------------------------------------------|----------------------|
+| public File[] listFiles()                       | 获取当前该路径下索引内容         |
+| public static File[] listRoots()                | 列出可用的文件系统根           |
+| public String[] list()                          | 获取当前路径下所有内容          |
+| public String[] list(FilenameFilter filter)     | 利用文件名过滤器获取当前该路径下所有内容 |
+| public File[] listFiles()                       | 获取当前该路径下所有内容         |
+| public File[] listFiles(FileFilter filter)      | 利用文件名过滤器获取当前该路径下所有内容 |
+| public File[] listFiles(FilenameFilter filter)  | 利用文件名过滤器获取当前该路径下所有内容 |
+
