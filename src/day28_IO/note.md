@@ -263,3 +263,30 @@ public void newLine() 跨平台换行
 ## 压缩解压
 ### 压缩本质：把每一个（文件/文件夹）看成ZipEntry对象放到压缩包中
 ### 解压本质：把每一个ZipEntry对象按照层级拷贝到本地另一个文件夹中。
+
+## 常用工具包 Commons-io
+Commons-io是Apache基金会提供的一组有关IO操作的的Java开源工具包。  
+作用：提高IO流的开发效率。 
+### 使用步骤  
+1. 在项目中创建一个文件夹：lib
+2. 将jar包复制粘贴到lib文件夹中
+3. 右键lib文件夹，选择Add As Library -》 点击 OK
+4. 在类中导包使用
+
+| FileUtils类（文件/文件夹相关）                                            | 说明             |
+|-----------------------------------------------------------------|----------------|
+| static void copyFile(File srcFile, File destFile)               | 复制文件           |
+| static void copyDirectory(File srcDir, File destDir)            | 复制文件夹          | 
+| static void copyDirectoryToDirectory(File srcDir, File destDir) | 复制文件夹          |
+| static void deleteDirectory(File directory)                     | 删除文件夹          |
+| static void cleanDirectory(File directory)                      | 清空文件夹          |
+| static String readFileToString(File file, Charset encoding)     | 读取文件夹中的数据变成字符串 |
+| static void write(File file, CharSequence data, Charset encoding)| 写出数据           |
+
+
+| IOUtils类（字节流相关）                                                | 说明    |
+|----------------------------------------------------------------|-------|
+| public static int copy(InputStream input, OutputStream output) | 复制文件  |
+| public static int copyLarge(Reader input, Writer output)       | 复制大文件 |
+| public static String readLines(Reader input)                   | 读取数据  |
+| public static void write(String data, OutputStream output)     | 写出数据  |
