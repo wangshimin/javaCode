@@ -35,7 +35,7 @@ public class test7 {
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter("myfile/count.txt"));
         //3.把当前自增之后的count写出到文件当中
-        bw.write(count + ""); //97 + ""
+        bw.write(count + ""); //97 + ""，才能原样输出到文件中，否则会被编译器认为是数字，而输出的是数字的ASCII码
         bw.close();
 
 
