@@ -258,3 +258,8 @@ public void newLine() 跨平台换行
 | public void println(Xxx xx)                        | 特有方法：打印任意数据，自动刷新，自动换行  |
 | public void print(Xxx xx)                          | 特有方法：打印任意数据，不换行        |
 | public void println(String format, Object... args) | 特有方法：带有占位符的打印语句，不换行    |
+
+
+## 压缩解压
+### 压缩本质：把每一个（文件/文件夹）看成ZipEntry对象放到压缩包中
+### 解压本质：把每一个ZipEntry对象按照层级拷贝到本地另一个文件夹中。
