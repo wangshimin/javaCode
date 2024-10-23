@@ -239,3 +239,22 @@ public void newLine() 跨平台换行
 | public void println(Xxx xx)                        | 特有方法：打印任意数据，自动刷新，自动换行 |
 | public void print(Xxx xx)                          | 特有方法：打印任意数据，不换行       |
 | public void println(String format, Object... args) | 特有方法：带有占位符的打印语句，不换行   |
+
+### 字符打印流
+
+| 构造方法                                                 | 说明              |
+|------------------------------------------------------|-----------------|
+| public PrintWriter(Write/File/String)                | 关联字节输出流/文件/文件路径 |
+| public PrintWriter(String fileName, Charset charset) | 指定字符编码          |
+| public PrintWriter(Write w, boolean autoFlush)       | 自动刷新            |
+| public PrintWriter(Write w, boolean autoFlush, Charset charset)       | 指定字符编码且自动刷新     |                                         |                 |
+
+**注意：字符流层有缓冲区，想要自动刷新需要开启。**
+
+
+| 成员方法                                               | 说明                     |
+|----------------------------------------------------|------------------------|
+| public void write(int b)                           | 常规方法：规则跟之前一样，写出字节或者字符串 |
+| public void println(Xxx xx)                        | 特有方法：打印任意数据，自动刷新，自动换行  |
+| public void print(Xxx xx)                          | 特有方法：打印任意数据，不换行        |
+| public void println(String format, Object... args) | 特有方法：带有占位符的打印语句，不换行    |
