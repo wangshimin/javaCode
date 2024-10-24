@@ -10,40 +10,63 @@ import java.util.Random;
 public class test2 {
     public static void main(String[] args) throws IOException {
         /*需求：
-            需求：
-                有一个文件里面存储了班级同学的信息，每一个信息占一行。
-                格式为：张三-男-23
-                要求通过程序实现随机点名器。
+            一个文件里面存储了班级同学的信息，格式为：张三-男-23
+            每一个学生信息占一行。
+            要求通过程序实现随机点名器。
+            70%的概率随机到男生
+            30%的概率随机到女生
+            随机100万次，统计结果。看生成男生和女生的比例是不是接近于7：3
+        */
 
-            运行效果：
-                第一次运行程序：随机同学姓名1（只显示名字）
-                第二次运行程序：随机同学姓名2（只显示名字）
-                第三次运行程序：随机同学姓名3（只显示名字）
-                …
-         */
-
-        //1.读取文件中学生的姓名
-        ArrayList<String> list = new ArrayList<>();
+        //1.读取数据，并把男生和女生的信息添加到不同的集合当中
+        ArrayList<String> boyNameList = new ArrayList<>();
+        ArrayList<String> girlNameList = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader("src/day29_IO/Test/ramdomName/names.txt"));
         String line;
         while ((line = br.readLine()) != null){
-            list.add(line);
+            String[] arr = line.split("-");
+            if(arr[1].equals("男")){
+                boyNameList.add(line);
+            }else{
+                girlNameList.add(line);
+            }
         }
         br.close();
 
-        //2.随机抽取(解法一)
+        //2.定义权重集合，男女比例：7:3
+        ArrayList<Integer> list = new ArrayList<>();
+        Collections.addAll(list,1,1,1,1,1,1,1,0,0,0);
+
+        //3.定义变量，统计被点到的次数
+        int boyCount = 0;
+        int girlCount = 0;
+
         Random r = new Random();
-        int index = r.nextInt(list.size());
-        String randomName1 = list.get(index);
-        String[] arr1 = randomName1.split("-");
-        System.out.println(arr1[0]);
 
+        //4.循环100万次
+        for (int i = 0; i < 1000000; i++) {
+            //5.从权重集合中获取随机数据
+            int index = r.nextInt(list.size());
+            int weight = list.get(index);
+            //6.判断获取的随机数据是1还是0
+            if(weight == 1){
+                //1就随机男生
+                Collections.shuffle(boyNameList);
+                String boyInfo = boyNameList.get(0);
+                System.out.println(boyInfo);
+                boyCount++;
+            }else{
+                //0就随机女生
+                Collections.shuffle(girlNameList);
+                String girlInfo = girlNameList.get(0);
+                System.out.println(girlInfo);
+                girlCount++;
+            }
+        }
 
-        //2.随机抽取(解法二)
-        Collections.shuffle(list);
-        String randomName2 = list.get(0);
-        String[] arr2 = randomName2.split("-");
-        System.out.println(arr2[0]);
+        System.out.println("随机抽取100万次，其中男生被抽到了" + boyCount);
+        System.out.println("随机抽取100万次，其中女生被抽到了" + girlCount);
+
     }
 }
 
