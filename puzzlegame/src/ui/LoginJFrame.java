@@ -1,5 +1,6 @@
 package ui;
 
+import cn.hutool.core.io.FileUtil;
 import domain.User;
 import util.CodeUtil;
 
@@ -7,15 +8,17 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 
 // 登录界面
 public class LoginJFrame extends JFrame implements MouseListener {
 
-    static ArrayList<User> allUsers = new ArrayList<>();
-    static {
-        allUsers.add(new User("zhangsan","123"));
-        allUsers.add(new User("lisi","1234"));
-    }
+    ArrayList<User> allUsers = new ArrayList<>();
+
+//    static {
+//        allUsers.add(new User("zhangsan","123"));
+//        allUsers.add(new User("lisi","1234"));
+//    }
     JButton login = new JButton();
     JButton register = new JButton();
 
@@ -28,6 +31,9 @@ public class LoginJFrame extends JFrame implements MouseListener {
     JLabel rightCode = new JLabel();
 
     public LoginJFrame() {
+        // 读取本地文件中的用户信息
+        readUserInfo();
+        
         // 初始化界面
         initJFrame();
         
@@ -36,6 +42,28 @@ public class LoginJFrame extends JFrame implements MouseListener {
 
         // 让当前界面显示出来
         this.setVisible(true);
+    }
+
+    /**
+     * 读取本地文件中的用户信息
+     */
+    private void readUserInfo() {
+        // 1.读取数据
+        List<String> userInfoStrList = FileUtil.readUtf8Lines("/Users/wangshimin/study/java/basicCode/puzzlegame/userinfo.txt");
+        // 2.遍历集合获取用户信息并创建User对象
+        for (String str : userInfoStrList) {
+            // 3.按照=进行分割
+            // username=zhangsan&password=123
+            String[] userInfoArr = str.split("&");
+            // username=zhangsan
+            String[] arr1 = userInfoArr[0].split("=");
+            // password=123
+            String[] arr2 = userInfoArr[1].split("=");
+            // 4.创建User对象
+            User u = new User(arr1[1],arr2[1]);
+            // 5.把User对象添加到集合中
+            allUsers.add(u);
+        }
     }
 
     private void initView() {
@@ -163,6 +191,10 @@ public class LoginJFrame extends JFrame implements MouseListener {
             }
         } else if (e.getSource() == register) {
             System.out.println("点击了注册按钮");
+            // 关闭当前的登录界面
+            this.setVisible(false);
+            // 打开注册界面
+            new RegisterJFrame(allUsers);
         } else if (e.getSource() == rightCode) {
             System.out.println("更换验证码");
             // 获取一个新的验证码
