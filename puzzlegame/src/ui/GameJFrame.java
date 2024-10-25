@@ -232,8 +232,53 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         jMenuBar.add(functionJMenu);
         jMenuBar.add(aboutJMenu);
 
+        // 读取存档信息，修改菜单上表示的内容
+        getGameInfo();
+
         // 给整个界面设置菜单
         this.setJMenuBar(jMenuBar);
+    }
+
+    /**
+     * 获取游戏存档信息
+     */
+    public void getGameInfo(){
+        // 1.创建File对象表示所有存档所在的文件夹
+        File file = new File("puzzlegame/save");
+        // 2.进入文件夹获取到里面所有的存档文件
+        File[] files = file.listFiles();
+        // 3.遍历数组，得到每一个存档文件
+        for (File f : files) {
+            // f：依次表示每一个存档文件
+            // 获取每一个存档文件中的步数
+            GameInfo gi = null;
+            try {
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+                gi = (GameInfo)ois.readObject();
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            // 获取到步数
+            int step = gi.getStep();
+
+            // 把存档的步数同步到菜单当中
+            // save0 ---> 0
+            // save1 ---> 1
+            // ...
+
+            // 获取存档的文件名 save0.data
+            String name = f.getName();
+            // 获取到存档的序号（索引）
+            int index = name.charAt(4) - '0';
+            // 修改菜单上所表示的文字信息
+            saveJMenu.getItem(index).setText("存档" + index + "（" + step + "）步");
+            loadJMenu.getItem(index).setText("读档" + index + "（" + step + "）步");
+        }
+        // 3.获取里面的步数，修改菜单
+
     }
 
     private void  initJFrame() {
