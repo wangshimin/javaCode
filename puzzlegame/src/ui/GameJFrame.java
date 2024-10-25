@@ -9,9 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Random;
 
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
@@ -451,8 +449,8 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             int index = str.charAt(2) - '0';
 
             try {
-                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save/save"+ index +".data"));
-                GameInfo gi = new GameInfo(data, x, y, imagePath + imageTheme, step);
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("puzzlegame/save/save"+ index +".data"));
+                GameInfo gi = new GameInfo(data, x, y, imageTheme, step);
                  // 写法1:写入并手动关流
 //                oos.writeObject(gi);
 //                oos.close();
@@ -468,9 +466,30 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             loadJMenu.getItem(index).setText("读档" + index + "(" + step + "步)");
         }else if(obj == loadItem0 || obj == loadItem1 || obj == loadItem2 || obj == loadItem3 ||obj == loadItem4){
             System.out.println("读档");
+            //获取当前是哪个读档被点击了，获取其中的序号
             JMenuItem item = (JMenuItem) obj;
-            System.out.println(item.getText());
+            String str = item.getText();
+            int index = str.charAt(2) - '0';
 
+            GameInfo gi = null;
+            try {
+                //可以到本地文件中读取数据
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("puzzlegame/save/save"+ index +".data"));
+                gi = (GameInfo)ois.readObject();
+                ois.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (ClassNotFoundException classNotFoundException) {
+                classNotFoundException.printStackTrace();
+            }
+            data = gi.getData();
+            imageTheme = gi.getPath();
+            step = gi.getStep();
+            x = gi.getX();
+            y = gi.getY();
+
+            // 重新刷新界面加载游戏
+            initImage();
         }
 
     }
