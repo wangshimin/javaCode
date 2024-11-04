@@ -16,7 +16,7 @@ public class MyThread extends Thread{
         while (true) {
             synchronized (MyThread.class) {
                 if (list.size() == 0) {
-                    System.out.println(getName() + boxList);
+                    System.out.println(getName() + boxList + "，最高奖项为："+ Collections.max(boxList));
                     break;
                 } else {
                     // 继续抽奖

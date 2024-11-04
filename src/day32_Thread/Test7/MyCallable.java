@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.Callable;
 
-public class MyCallable implements Callable {
+public class MyCallable implements Callable <Integer>{
 
     ArrayList<Integer> list;
 
@@ -13,7 +13,7 @@ public class MyCallable implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
+    public Integer call() throws Exception {
         ArrayList<Integer> boxList = new ArrayList<>();
         while (true) {
             synchronized (MyCallable.class) {
@@ -27,11 +27,7 @@ public class MyCallable implements Callable {
                     boxList.add(price);
                 }
             }
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Thread.sleep(10);
         }
         // 把集合中的最大值返回
         if (boxList.size() == 0) {
