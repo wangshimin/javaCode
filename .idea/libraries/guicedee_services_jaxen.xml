@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="guicedee.services.jaxen" type="repository">
+    <properties maven-id="com.guicedee.services:jaxen:1.2.0.2-jre16" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jaxen-1.2.0.2-jre16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
