@@ -11,5 +11,6 @@
     <orderEntry type="library" name="commons-io-2.11.0" level="project" />
     <orderEntry type="library" name="hutool-all-5.8.10" level="project" />
     <orderEntry type="library" exported="" name="ch.qos.logback.classic" level="project" />
+    <orderEntry type="library" exported="" name="guicedee.services.dom4j" level="project" />
   </component>
 </module>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<students>
+    <!--    下面表示第一个学生的信息-->
+    <student id="1">
+        <name>张三</name>
+        <age>17</age>
+        <mark>1&lt;2</mark>
+    </student>
+
+    <!--    下面表示第二个学生的信息-->
+    <student id="2">
+        <name>李四</name>
+        <age>19</age>
+        <mark>20&gt;19</mark>
+    </student>
+
+    <!--    下面表示第二个学生的信息-->
+    <student id="3">
+        <name>王五</name>
+        <age>20</age>
+        <mark>活泼&amp;热爱生活，外号&quot;阳光开朗大男孩&quot;。口头禅为&apos;开心就好！&apos;</mark>
+    </student>
+
+    <student id="4">
+        <name><![CDATA[ 赵六>><<<呀     ]]></name>
+        <age>21</age>
+        <mark>1&gt;2</mark>
+    </student>
+</students>
